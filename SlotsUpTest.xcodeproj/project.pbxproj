@@ -13,6 +13,7 @@
 		AC676B5B22C25C0B00A6C613 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC676B5A22C25C0B00A6C613 /* Assets.xcassets */; };
 		AC676B5E22C25C0B00A6C613 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC676B5C22C25C0B00A6C613 /* LaunchScreen.storyboard */; };
 		AC676B6622C25E5200A6C613 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676B6522C25E5200A6C613 /* Constants.swift */; };
+		AC676B6A22C2653100A6C613 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676B6922C2653100A6C613 /* Networking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		AC676B5D22C25C0B00A6C613 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC676B5F22C25C0B00A6C613 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC676B6522C25E5200A6C613 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		AC676B6922C2653100A6C613 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				AC676B5322C25C0800A6C613 /* AppDelegate.swift */,
 				AC676B5522C25C0800A6C613 /* LoginScreen.swift */,
+				AC676B6922C2653100A6C613 /* Networking.swift */,
 				AC676B6522C25E5200A6C613 /* Constants.swift */,
 				AC676B5722C25C0800A6C613 /* Main.storyboard */,
 				AC676B5A22C25C0B00A6C613 /* Assets.xcassets */,
@@ -141,6 +144,7 @@
 				AC676B5622C25C0800A6C613 /* LoginScreen.swift in Sources */,
 				AC676B5422C25C0800A6C613 /* AppDelegate.swift in Sources */,
 				AC676B6622C25E5200A6C613 /* Constants.swift in Sources */,
+				AC676B6A22C2653100A6C613 /* Networking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

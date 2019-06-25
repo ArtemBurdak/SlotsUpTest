@@ -10,4 +10,5 @@ import Foundation
 
 enum Constants {
     static let apiUrl = "http://slotsup.tripland.net/api/login"
+
 }
