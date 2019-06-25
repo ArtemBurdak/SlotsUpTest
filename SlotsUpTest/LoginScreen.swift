@@ -8,13 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginScreen: UIViewController {
+
+    @IBOutlet private weak var loginTextField: UITextField!
+
+    @IBOutlet weak var passwordTextField: UITextField!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
+
+    @IBAction func submitAction(_ sender: UIButton) {
+    }
+    
 
 }
 
