@@ -35,7 +35,7 @@ class LoginScreen: UIViewController {
             guard let success = self.networking.success else { return }
             if success {
 
-                if let vc = storyBoard.instantiateViewController(withIdentifier: "CharacterCountTable") as? CharecterCountViewController {
+                if let vc = storyBoard.instantiateViewController(withIdentifier: "CharacterCountTable") as? CharacterCountViewController {
                 vc.text = text
                 self.show(vc, sender: self)
                 }
