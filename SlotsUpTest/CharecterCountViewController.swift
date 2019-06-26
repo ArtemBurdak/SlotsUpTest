@@ -8,13 +8,13 @@
 
 import UIKit
 
-class CharecterCountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CharecterCountViewController: UIViewController {
 
     let network = Networking()
 
     var text = String()
 
-    var sorted = [(key: Character, value: Int)]()
+    var sortedDictionary = [(key: Character, value: Int)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,18 +33,21 @@ class CharecterCountViewController: UIViewController, UITableViewDelegate, UITab
                 charectersCountDictionary[$0] = 1
             }
         }
-
-        sorted = charectersCountDictionary.sorted { $0 < $1 }
+        sortedDictionary = charectersCountDictionary.sorted { $0 < $1 }
     }
 
+}
+
+extension CharecterCountViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sorted.count
+        return sortedDictionary.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CharecterCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
-        let item = sorted[indexPath.row]
+        let item = sortedDictionary[indexPath.row]
         cell.textLabel?.text = "'\(item.key)' - \(item.value) times"
 
         return cell
