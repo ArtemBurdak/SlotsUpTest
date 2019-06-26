@@ -1,14 +1,14 @@
 //
-//  CharecterCountViewController.swift
+//  CllectionViewController.swift
 //  SlotsUpTest
 //
-//  Created by Artem on 6/26/19.
+//  Created by Artem on 6/27/19.
 //  Copyright © 2019 Artem. All rights reserved.
 //
 
 import UIKit
 
-class CharacterCountViewController: UIViewController {
+class CollectionVC: UIViewController {
 
     private let network = Networking()
 
@@ -34,22 +34,11 @@ class CharacterCountViewController: UIViewController {
             }
         }
         sortedDictionary = charactersCountDictionary.sorted { $0 < $1 }
+
+        for (index,dict) in sortedDictionary.enumerated() {
+            if dict.key == " " {
+                sortedDictionary[index].key = "␣"
+            }
+        }
     }
-}
-
-extension CharacterCountViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedDictionary.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath)
-
-        let item = sortedDictionary[indexPath.row]
-        cell.textLabel?.text = "'\(item.key)' - \(item.value) times"
-
-        return cell
-    }
-
 }

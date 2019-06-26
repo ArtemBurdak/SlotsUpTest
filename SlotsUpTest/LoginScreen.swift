@@ -26,7 +26,7 @@ class LoginScreen: UIViewController {
             Networking.login(url: Constants.apiUrl, parameters: parameters) { [weak self] (authResult)  in
 
                 if authResult.data.access == "1" {
-                    guard let vc = self?.storyboard?.instantiateViewController(withIdentifier: "CharacterCountTable") as? CharacterCountViewController else { return }
+                    guard let vc = self?.storyboard?.instantiateViewController(withIdentifier: "CollectionVC") as? CollectionVC else { return }
                     vc.text = authResult.data.text
                     self?.show(vc, sender: self)
                 } else {
