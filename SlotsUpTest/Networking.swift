@@ -13,15 +13,16 @@ class Networking {
 
     var text = String()
 
-    var sucsess: Bool?
+    var success: Bool?
 
-    func requestUserAuthorization(url: String, parameters: [String : String]) {
+    func requestUserAuthorization(url: String, parameters: [String : String], completion: @escaping (String) -> (Void)) {
 
         Alamofire.request(url, method: .post,
                           parameters: parameters).validate().responseJSON {
                             response in
                             guard let data = response.data else { return }
                             self.decode(json: data)
+                            completion(self.text)
                             print(response)
         }
 
@@ -34,12 +35,8 @@ class Networking {
             let networkResponse = networkingData
 
             self.text = networkResponse.data.text
-            print(text)
 
-            sucsess = accessResult(response: networkResponse.data.access)
-            print(networkResponse.data.access, "----------access")
-            print(sucsess, "------sucsess")
-
+            success = accessResult(response: networkResponse.data.access)
         }
     }
 

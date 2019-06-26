@@ -14,6 +14,8 @@ class LoginScreen: UIViewController {
 
     @IBOutlet weak var passwordTextField: UITextField!
 
+    @IBOutlet weak var loadingLabel: UILabel!
+
     let networking = Networking()
 
     override func viewDidLoad() {
@@ -27,16 +29,21 @@ class LoginScreen: UIViewController {
         guard let password = loginTextField.text else { return }
 
         let parameters = ["login": login, "password": password]
-        networking.requestUserAuthorization(url: Constants.apiUrl, parameters: parameters)
-//        if networking.sucsess == true {
+        networking.requestUserAuthorization(url: Constants.apiUrl, parameters: parameters) { text in
 
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "CharacterCountTable") as! CharecterCountViewController
-        self.present(vc, animated: true, completion: nil)
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
-//        } else {
-//            showError()
-//        }
+            guard let success = self.networking.success else { return }
+            if success {
+
+                if let vc = storyBoard.instantiateViewController(withIdentifier: "CharacterCountTable") as? CharecterCountViewController {
+                vc.text = text
+                self.show(vc, sender: self)
+                }
+            } else {
+                self.showError()
+            }
+        }
     }
 
     func showError() {

@@ -12,33 +12,40 @@ class CharecterCountViewController: UIViewController, UITableViewDelegate, UITab
 
     let network = Networking()
 
-    var arrayOfCharacters = [Character]()
-
     var text = String()
+
+    var sorted = [(key: Character, value: Int)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        text = network.text
         splitIntoLetters(text: text)
-
-
     }
 
-    func splitIntoLetters(text: String) {
-        for char in text {
-            arrayOfCharacters.append(char)
+    func splitIntoLetters(text: String){
+
+        var charectersCountDictionary = [Character: Int]()
+
+        text.forEach {
+            if let value = charectersCountDictionary[$0] {
+                charectersCountDictionary[$0] = value + 1
+            } else {
+                charectersCountDictionary[$0] = 1
+            }
         }
-        print(arrayOfCharacters)
 
+        sorted = charectersCountDictionary.sorted { $0 < $1 }
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfCharacters.count
+        return sorted.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharecterCell", for: indexPath)
+
+        let item = sorted[indexPath.row]
+        cell.textLabel?.text = "'\(item.key)' was used \(item.value) times"
 
         return cell
     }
