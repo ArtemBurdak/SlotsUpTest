@@ -18,7 +18,6 @@ class LoginScreen: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
 
@@ -27,14 +26,17 @@ class LoginScreen: UIViewController {
         guard let login = loginTextField.text else { return }
         guard let password = loginTextField.text else { return }
 
-        if login == "admin" && password == "admin" {
-
-        let parameters: [String: String] = ["login": login, "password": password]
+        let parameters = ["login": login, "password": password]
         networking.requestUserAuthorization(url: Constants.apiUrl, parameters: parameters)
+//        if networking.sucsess == true {
 
-        } else {
-            showError()
-        }
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "CharacterCountTable") as! CharecterCountViewController
+        self.present(vc, animated: true, completion: nil)
+
+//        } else {
+//            showError()
+//        }
     }
 
     func showError() {
@@ -48,4 +50,3 @@ class LoginScreen: UIViewController {
     }
 
 }
-

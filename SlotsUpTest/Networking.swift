@@ -7,33 +7,48 @@
 //
 
 import Foundation
+import Alamofire
 
-struct Networking {
+class Networking {
+
+    var text = String()
+
+    var sucsess: Bool?
 
     func requestUserAuthorization(url: String, parameters: [String : String]) {
 
-        guard let url: URL = URL(string: url) else {return}
-        let parameters = parameters
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        request.httpBody = httpBody
+        Alamofire.request(url, method: .post,
+                          parameters: parameters).validate().responseJSON {
+                            response in
+                            guard let data = response.data else { return }
+                            self.decode(json: data)
+                            print(response)
+        }
 
-        let session = URLSession.shared
-        session.dataTask(with: url) { (data, response, error) in
-            if let response = response {
-                print(response, "-----response")
-            }
-            guard let data = data else { return }
-            print(data, "------")
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
-                print(error.localizedDescription)
-            }
-            }.resume()
+    }
+
+    func decode(json: Data) {
+        let decoder = JSONDecoder()
+
+        if let networkingData = try? decoder.decode(Response.self, from: json) {
+            let networkResponse = networkingData
+
+            self.text = networkResponse.data.text
+            print(text)
+
+            sucsess = accessResult(response: networkResponse.data.access)
+            print(networkResponse.data.access, "----------access")
+            print(sucsess, "------sucsess")
+
+        }
+    }
+
+    func accessResult(response: String) -> Bool {
+        if response == "1" {
+            return true
+        } else {
+            return false
+        }
     }
 
 }
