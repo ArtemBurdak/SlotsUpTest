@@ -29,7 +29,8 @@ class LoginScreen: UIViewController {
         guard let password = loginTextField.text else { return }
 
         let parameters = ["login": login, "password": password]
-        networking.requestUserAuthorization(url: Constants.apiUrl, parameters: parameters) { text in
+        networking.requestUserAuthorization(url: Constants.apiUrl,
+                                            parameters: parameters) { text in
 
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -41,14 +42,16 @@ class LoginScreen: UIViewController {
                 self.show(vc, sender: self)
                 }
             } else {
-                self.showError()
+                self.showError(whith: text)
             }
         }
     }
 
-    func showError() {
+    func showError(whith text: String) {
 
-        let alertController = UIAlertController(title: "Ooops", message: "Wrong login or password", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Wrong login or password",
+                                                message: text,
+                                                preferredStyle: .alert)
 
         let action = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(action)

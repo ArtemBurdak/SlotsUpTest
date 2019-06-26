@@ -45,7 +45,7 @@ class CharecterCountViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharecterCell", for: indexPath)
 
         let item = sorted[indexPath.row]
-        cell.textLabel?.text = "'\(item.key)' was used \(item.value) times"
+        cell.textLabel?.text = "'\(item.key)' - \(item.value) times"
 
         return cell
     }
