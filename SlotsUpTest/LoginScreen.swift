@@ -11,22 +11,20 @@ import UIKit
 class LoginScreen: UIViewController {
 
     @IBOutlet private weak var loginTextField: UITextField!
-
     @IBOutlet weak var passwordTextField: UITextField!
 
     @IBAction func submitAction(_ sender: UIButton) {
-
         guard let login = loginTextField.text else { return }
         guard let password = loginTextField.text else { return }
 
         if !login.isEmpty, !password.isEmpty {
-
             let parameters = ["login": login, "password": password]
 
-            Networking.login(url: Constants.apiUrl, parameters: parameters) { [weak self] (authResult)  in
+            Networking.login(url: Constants.NetworkingURLs.login,
+                             parameters: parameters) { [weak self] (authResult)  in
 
                 if authResult.data.access == "1" {
-                    guard let vc = self?.storyboard?.instantiateViewController(withIdentifier: "CollectionVC") as? CollectionVC else { return }
+                    guard let vc = self?.storyboard?.instantiateViewController(withIdentifier: Constants.Identifiers.collectionVC) as? CollectionVC else { return }
                     vc.text = authResult.data.text
                     self?.show(vc, sender: self)
                 } else {
@@ -40,7 +38,6 @@ class LoginScreen: UIViewController {
     }
 
     func showError(message: String) {
-
         let alertController = UIAlertController(title: "Ooops",
                                                 message: message,
                                                 preferredStyle: .alert)
@@ -50,5 +47,4 @@ class LoginScreen: UIViewController {
 
         self.present(alertController, animated: true, completion: nil)
     }
-
 }

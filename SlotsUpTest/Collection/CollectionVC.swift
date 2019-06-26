@@ -10,20 +10,15 @@ import UIKit
 
 class CollectionVC: UIViewController {
 
-    private let network = Networking()
-
     var text = String()
-
     var sortedDictionary = [(key: Character, value: Int)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         splitIntoLetters(text: text)
     }
 
-    func splitIntoLetters(text: String){
-
+    func splitIntoLetters(text: String) {
         var charactersCountDictionary = [Character: Int]()
 
         text.forEach {

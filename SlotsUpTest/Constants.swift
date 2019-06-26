@@ -8,7 +8,15 @@
 
 import Foundation
 
-enum Constants {
-    static let apiUrl = "http://slotsup.tripland.net/api/login"
-    static let collectionCell = "collectionCell"
+struct Constants {
+
+    struct NetworkingURLs {
+        private static let baseURL = "http://slotsup.tripland.net/api"
+        static let login = baseURL + "/login"
+    }
+
+    struct Identifiers {
+        static let collectionCell = "collectionCell"
+        static let collectionVC = "CollectionVC"
+    }
 }
