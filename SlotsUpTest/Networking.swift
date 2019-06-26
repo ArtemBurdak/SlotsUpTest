@@ -9,43 +9,16 @@
 import Foundation
 import Alamofire
 
-class Networking {
+struct Networking {
 
-    var text = String()
-
-    var success: Bool?
-
-    func requestUserAuthorization(url: String, parameters: [String : String], completion: @escaping (String) -> (Void)) {
+    static func login(url: String, parameters: [String : String], completion: @escaping (AuthResult) -> Void) {
 
         Alamofire.request(url, method: .post,
-                          parameters: parameters).validate().responseJSON {
-                            response in
+                          parameters: parameters).validate().responseJSON { response in
+
                             guard let data = response.data else { return }
-                            self.decode(json: data)
-                            completion(self.text)
-                            print(response)
-        }
-
-    }
-
-    func decode(json: Data) {
-        let decoder = JSONDecoder()
-
-        if let networkingData = try? decoder.decode(Response.self, from: json) {
-            let networkResponse = networkingData
-
-            self.text = networkResponse.data.text
-
-            success = accessResult(response: networkResponse.data.access)
+                            guard let authResult = try? JSONDecoder().decode(AuthResult.self, from: data) else { return }
+                            completion(authResult)
         }
     }
-
-    func accessResult(response: String) -> Bool {
-        if response == "1" {
-            return true
-        } else {
-            return false
-        }
-    }
-
 }

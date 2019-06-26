@@ -10,7 +10,7 @@ import UIKit
 
 class CharacterCountViewController: UIViewController {
 
-    let network = Networking()
+    private let network = Networking()
 
     var text = String()
 

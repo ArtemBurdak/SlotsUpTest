@@ -80,7 +80,7 @@
 				AC676B5322C25C0800A6C613 /* AppDelegate.swift */,
 				AC676B5522C25C0800A6C613 /* LoginScreen.swift */,
 				AC676B6922C2653100A6C613 /* Networking.swift */,
-				ACFEF58822C36B4200555101 /* Response.swift */,
+				ACE2205B22C4195100BD5BE0 /* Models */,
 				AC676B6522C25E5200A6C613 /* Constants.swift */,
 				ACFEF58A22C37D3C00555101 /* CharacterCountViewController.swift */,
 				AC676B5722C25C0800A6C613 /* Main.storyboard */,
@@ -89,6 +89,14 @@
 				AC676B5F22C25C0B00A6C613 /* Info.plist */,
 			);
 			path = SlotsUpTest;
+			sourceTree = "<group>";
+		};
+		ACE2205B22C4195100BD5BE0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ACFEF58822C36B4200555101 /* Response.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D964C86DA14BB93BE4DABE49 /* Pods */ = {

@@ -6,14 +6,13 @@
 //  Copyright © 2019 Artem. All rights reserved.
 //
 
-import Foundation
-
-struct Response: Codable {
+struct AuthResult: Codable {
     let status: Int
-    let data: TextResponse
+    let data: AuthResultData
 }
 
-struct TextResponse: Codable {
+struct AuthResultData: Codable {
     let access: String
     let text: String
 }
+

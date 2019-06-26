@@ -14,41 +14,35 @@ class LoginScreen: UIViewController {
 
     @IBOutlet weak var passwordTextField: UITextField!
 
-    let networking = Networking()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
     @IBAction func submitAction(_ sender: UIButton) {
 
         guard let login = loginTextField.text else { return }
         guard let password = loginTextField.text else { return }
 
-        let parameters = ["login": login, "password": password]
-        networking.requestUserAuthorization(url: Constants.apiUrl,
-                                            parameters: parameters) { text in
+        if !login.isEmpty, !password.isEmpty {
 
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let parameters = ["login": login, "password": password]
 
-            guard let success = self.networking.success else { return }
-            if success {
+            Networking.login(url: Constants.apiUrl, parameters: parameters) { [weak self] (authResult)  in
 
-                if let vc = storyBoard.instantiateViewController(withIdentifier: "CharacterCountTable") as? CharacterCountViewController {
-                vc.text = text
-                self.show(vc, sender: self)
+                if authResult.data.access == "1" {
+                    guard let vc = self?.storyboard?.instantiateViewController(withIdentifier: "CharacterCountTable") as? CharacterCountViewController else { return }
+                    vc.text = authResult.data.text
+                    self?.show(vc, sender: self)
+                } else {
+                    self?.showError(message: authResult.data.text)
                 }
-            } else {
-                self.showError(whith: text)
             }
+
+        } else {
+            showError(message: "Check your logIn and password fields")
         }
     }
 
-    func showError(whith text: String) {
+    func showError(message: String) {
 
-        let alertController = UIAlertController(title: "Wrong login or password",
-                                                message: text,
+        let alertController = UIAlertController(title: "Ooops",
+                                                message: message,
                                                 preferredStyle: .alert)
 
         let action = UIAlertAction(title: "OK", style: .default)
