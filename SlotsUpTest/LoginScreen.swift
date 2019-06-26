@@ -14,8 +14,6 @@ class LoginScreen: UIViewController {
 
     @IBOutlet weak var passwordTextField: UITextField!
 
-    @IBOutlet weak var loadingLabel: UILabel!
-
     let networking = Networking()
 
     override func viewDidLoad() {
