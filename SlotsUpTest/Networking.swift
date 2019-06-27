@@ -11,14 +11,28 @@ import Alamofire
 
 struct Networking {
 
-    static func login(url: String, parameters: [String : String], completion: @escaping (AuthResult) -> Void) {
+    static func login(parameters: [String : String],
+                      completion: @escaping (Result<AuthResult>) -> Void) {
 
-        Alamofire.request(url, method: .post,
+        Alamofire.request(Constants.NetworkingURLs.login, method: .post,
                           parameters: parameters).validate().responseJSON { response in
 
-                            guard let data = response.data else { return }
-                            guard let authResult = try? JSONDecoder().decode(AuthResult.self, from: data) else { return }
-                            completion(authResult)
+                            switch response.result {
+                            case .success:
+                                guard
+                                    let data = response.data,
+                                    let authResult = try? JSONDecoder().decode(AuthResult.self, from: data)
+                                    else { completion(.failure(NetworkingError.notSerialazibleData)); return }
+
+                                completion(.success(authResult))
+
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
         }
     }
+}
+
+enum NetworkingError: Error {
+    case notSerialazibleData
 }

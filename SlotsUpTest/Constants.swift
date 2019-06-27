@@ -19,4 +19,8 @@ struct Constants {
         static let collectionCell = "collectionCell"
         static let collectionVC = "CollectionVC"
     }
+
+    struct ErrorMessages {
+        static let checkFields = "Check your logIn and password fields"
+    }
 }
