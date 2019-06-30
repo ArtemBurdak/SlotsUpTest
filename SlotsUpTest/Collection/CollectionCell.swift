@@ -13,6 +13,13 @@ class CollectionCell: UICollectionViewCell {
     @IBOutlet weak var count: UILabel!
     @IBOutlet weak var character: UILabel!
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        count.text = ""
+        character.text = ""
+    }
+
     func configure(data: (key: Character, value: Int)) {
         count.text = String(data.value)
         character.text = String(data.key)

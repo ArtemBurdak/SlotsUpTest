@@ -14,7 +14,16 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
 
     @IBAction func submitAction(_ sender: UIButton) {
+        checkLoginIsEmty()
+    }
+
+    func checkLoginIsEmty() {
+
         guard let login = loginTextField.text, let password = passwordTextField.text else { return }
+        submitLoginWith(login: login, password: password)
+    }
+
+    func submitLoginWith(login: String, password: String) {
 
         if !login.isEmpty, !password.isEmpty {
             let parameters = ["login": login, "password": password]
@@ -24,6 +33,7 @@ class LoginVC: UIViewController {
                 switch result {
                 case .success(let authResult):
                     if authResult.data.access == "1" {
+
                         guard let vc = self?.storyboard?.instantiateViewController(withIdentifier: Constants.Identifiers.collectionVC) as? CollectionVC else { return }
                         vc.text = authResult.data.text
                         self?.show(vc, sender: self)
@@ -34,7 +44,8 @@ class LoginVC: UIViewController {
                     self?.showError(message: error.localizedDescription)
                 }
             }
-        } else {
+        }
+        else {
             self.showError(message: Constants.ErrorMessages.checkFields)
         }
     }
@@ -49,4 +60,5 @@ class LoginVC: UIViewController {
 
         self.present(alertController, animated: true, completion: nil)
     }
+
 }
